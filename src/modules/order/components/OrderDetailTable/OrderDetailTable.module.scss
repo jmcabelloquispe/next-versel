@@ -1,0 +1,11 @@
+@import '../../../../styles/app';
+
+.table {
+  &__tablecita {
+    margin-top: 20px;
+
+    &:last-child {
+      margin-bottom: 20px;
+    }
+  }
+}
