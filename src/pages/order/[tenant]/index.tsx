@@ -9,6 +9,7 @@ import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import handlePromise from '../../../common/utils/handlePromise';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import OrderForm from '../../../modules/order/components/OrderForm/OrderForm';
 
 
 const ErrorFallback = ({error} : FallbackProps) => {
@@ -35,13 +36,19 @@ const OrdersLists = ({orders, errorCode, tenant}: Props) => {
         return <Error statusCode={errorCode} />
     }
     return (
+        <>
         <Container maxWidth="lg">
+            <div>
+                <OrderForm />
+            </div>
             <Box>
                 <ErrorBoundary FallbackComponent={ErrorFallback}>
+                    
                     <OrderHeader orders={orders} tenant={tenant}/>
                 </ErrorBoundary>
             </Box>        
         </Container>
+        </>
     );
 }
 
