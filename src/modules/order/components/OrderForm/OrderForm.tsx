@@ -92,7 +92,7 @@ export default function OrderForm() {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={4}>
           <FormControl fullWidth className={classes.textField}>
             <InputLabel id="demo-simple-select-label">Seleccionar búsqueda de pedido</InputLabel>
             <Select
@@ -106,10 +106,10 @@ export default function OrderForm() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={4}>
           <TextField className={classes.textField} fullWidth id="standard-basic" label="Ingresar Nº Documento de identidad - RUC" />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={4}>
           <FormControl fullWidth className={classes.textField}>
             <InputLabel id="demo-simple-select-label2">Seleccionar tipo de pedido</InputLabel>
             <Select
