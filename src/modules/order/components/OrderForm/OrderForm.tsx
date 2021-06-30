@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
       "& .MuiInputBase-input": {
-        backgroundColor: "#f5f5f5",
+        backgroundColor: "rgba(0, 0, 0, 0.05)",
         // color: "#707070"
       },
       "& .MuiFormLabel-root": {
@@ -88,6 +88,11 @@ export default function OrderForm() {
   const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
     setAge2(event.target.value as string);
   };
+
+  // const handleChange3 = (event: React.ChangeEvent<{ value: unknown }>) => {
+  //   // setAge2(event.next.target.value as string);
+  //   console.log(event)
+  // };
 
   return (
     <div className={classes.root}>
