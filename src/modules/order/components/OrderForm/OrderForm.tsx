@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
       "& .MuiInputBase-input": {
-        backgroundColor: "rgba(0, 0, 0, 0.05)",
+        backgroundColor: "rgba(0, 0, 0, 0.03)",
         // color: "#707070"
       },
       "& .MuiFormLabel-root": {
