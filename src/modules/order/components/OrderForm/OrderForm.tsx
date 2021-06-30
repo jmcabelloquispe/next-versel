@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       "& .MuiFormLabel-root": {
         color: "#707070",
-        zIndex: 1,
         fontSize: "12px",
         left: "4px",
         // top: "3px"
