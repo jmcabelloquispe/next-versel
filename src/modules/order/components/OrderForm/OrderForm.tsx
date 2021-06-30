@@ -21,8 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
       "& .MuiFormLabel-root": {
         color: "#707070",
         zIndex: 1,
-        // fontSize: "12px"
-      }
+        fontSize: "12px",
+        left: "4px",
+        // top: "3px"
+      },
       // "& .MuiInputLabel-formControl": {
       //   left: "4px"
       // }
@@ -42,6 +44,23 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       minWidth: 120,
     },
+    textField: {
+      "& .MuiFormLabel-root": {
+        color: "#707070",
+        zIndex: 1,
+        fontSize: "12px",
+        left: "4px",
+        // top: "3px"
+      },
+      "& .MuiInputLabel-formControl": {
+        transform: "translate(0, 27px) scale(1)"
+      },
+      "& .MuiInputLabel-shrink": {
+        transform: "translate(0, 1.5px) scale(1)",
+        transformOrigin: "top left",
+        left: "0",
+      }
+    }
     // inputLabel: {
     //   color: "red",
     //   zIndex: 1,
@@ -74,7 +93,7 @@ export default function OrderForm() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
-          <FormControl fullWidth>
+          <FormControl fullWidth className={classes.textField}>
             <InputLabel id="demo-simple-select-label">Seleccionar búsqueda de pedido</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -88,10 +107,10 @@ export default function OrderForm() {
           </FormControl>
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextField fullWidth id="standard-basic" label="Ingresar Nº Documento de identidad - RUC" />
+          <TextField className={classes.textField} fullWidth id="standard-basic" label="Ingresar Nº Documento de identidad - RUC" />
         </Grid>
         <Grid item xs={12} md={4}>
-          <FormControl fullWidth>
+          <FormControl fullWidth className={classes.textField}>
             <InputLabel id="demo-simple-select-label2">Seleccionar tipo de pedido</InputLabel>
             <Select
               labelId="demo-simple-select-label2"
