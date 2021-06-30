@@ -8,7 +8,22 @@ import { Order } from '../../../modules/order/types/Order';
 import { GetServerSideProps } from 'next';
 import Error from 'next/error'
 import handlePromise from '../../../common/utils/handlePromise';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      paddingTop: 30,
+    },
+    container: {
+      padding: '13px',
+      paddingTop: '20px',
+      background: '#ffffff',
+      marginTop: '21px'
+    },
+  }),
+);
 
 type Props = {
   order: Order,
@@ -16,11 +31,12 @@ type Props = {
 }
 
 const BasicTable = ({order, error}: Props) => {
+  const classes = useStyles();
   if (error) {
     return <Error statusCode={error} />
   }
   return (
-    <Container maxWidth="lg">
+    <div className={classes.container}>
       <Box>
         {order.orders.map((order, index) => (
           <React.Fragment key={index}>
@@ -29,7 +45,7 @@ const BasicTable = ({order, error}: Props) => {
           </React.Fragment>
         ))}
       </Box>        
-    </Container>
+    </div>
   );
 }
 

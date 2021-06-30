@@ -1,5 +1,6 @@
 import React from 'react'
-import Header from './Header/Header'
+import Nav from './Nav'
+import Container from '@material-ui/core/Container';
 
 type Props = {
   children: React.ReactNode
@@ -8,8 +9,12 @@ type Props = {
 const Layout = ({children}:Props) => {
   return (
     <div>
-      {/* <Header />  */}
-      {children}
+      <Nav /> 
+      <Container maxWidth={false}>
+        <>
+        {children}
+        </>
+      </Container>
     </div>
   )
 }

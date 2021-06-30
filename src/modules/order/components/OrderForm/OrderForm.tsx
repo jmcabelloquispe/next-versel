@@ -8,14 +8,31 @@ import Select from '@material-ui/core/Select';
 import { Grid } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-
+// import '../OrderForm/OrderForm.module.scss';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      paddingTop: 30,
+      "& .MuiInputBase-input": {
+        backgroundColor: "#f5f5f5",
+        // color: "#707070"
+      },
+      "& .MuiFormLabel-root": {
+        color: "#707070",
+        zIndex: 1,
+        // fontSize: "12px"
+      }
+      // "& .MuiInputLabel-formControl": {
+      //   left: "4px"
+      // }
     },
+    // "& .MuiInputLabel-formControl": {
+    //   transform: "translate(0, 26px) scale(1)"
+    // },
+    // "& .MuiInputLabel-shrink": {
+    //   transform: "translate(0, 1.5px) scale(1)"
+    // },
     paper: {
       padding: theme.spacing(2),
       textAlign: 'center',
@@ -25,9 +42,18 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       minWidth: 120,
     },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
+    // inputLabel: {
+    //   color: "red",
+    //   zIndex: 1,
+    //   "&$inputFocused": {
+    //     color: "orange",
+    //     fontSize: "16px"
+    //   }
+    // },
+    // inputFocused: {}
+    // selectEmpty: {
+    //   marginTop: theme.spacing(2),
+    // },
   }),
 );
 
@@ -66,10 +92,10 @@ export default function OrderForm() {
         </Grid>
         <Grid item xs={12} md={4}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Seleccionar tipo de pedido</InputLabel>
+            <InputLabel id="demo-simple-select-label2">Seleccionar tipo de pedido</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="demo-simple-select-label2"
+              id="demo-simple-select2"
               value={age2}
               onChange={handleChange2}>
               <MenuItem value={10}>Ten</MenuItem>

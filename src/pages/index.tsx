@@ -65,6 +65,8 @@ export default function Home() {
     //     </a>
     //   </footer>
     // </div>
-    <div></div>
+    <div>
+      {/* <h3>holis</h3> */}
+    </div>
   )
 }

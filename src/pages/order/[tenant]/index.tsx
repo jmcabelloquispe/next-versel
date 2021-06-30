@@ -8,9 +8,24 @@ import Error from 'next/error';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import handlePromise from '../../../common/utils/handlePromise';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import OrderForm from '../../../modules/order/components/OrderForm/OrderForm';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      paddingTop: 30,
+    },
+    container: {
+      padding: '13px',
+      paddingTop: '20px',
+      background: '#ffffff',
+      marginTop: '21px'
+    },
+  }),
+);
 
 const ErrorFallback = ({error} : FallbackProps) => {
     return (
@@ -32,23 +47,21 @@ type Props = {
 // }
 
 const OrdersLists = ({orders, errorCode, tenant}: Props) => {
+    const classes = useStyles();
     if (errorCode) {
         return <Error statusCode={errorCode} />
     }
     return (
-        <>
-        <Container maxWidth="lg">
+        <div className={classes.container}>
             <div>
                 <OrderForm />
             </div>
             <Box>
                 <ErrorBoundary FallbackComponent={ErrorFallback}>
-                    
                     <OrderHeader orders={orders} tenant={tenant}/>
                 </ErrorBoundary>
-            </Box>        
-        </Container>
-        </>
+            </Box>  
+        </div>
     );
 }
 
