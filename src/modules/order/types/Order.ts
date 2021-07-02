@@ -13,4 +13,5 @@ export type Order = {
   address: string;
   orders: Order[];
   details: OrderDetail[];
+  seller: string
 };
