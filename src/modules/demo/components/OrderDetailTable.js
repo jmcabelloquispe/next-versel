@@ -10,51 +10,25 @@ import Error from 'next/error'
 import handlePromise from '../../../common/utils/handlePromise';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useEffect } from 'react';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Moment from 'moment';
 
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     root: {
-//       flexGrow: 1,
-//       paddingTop: 30,
-//     },
-//     container: {
-//       padding: '13px',
-//       paddingTop: '20px',
-//       background: '#ffffff',
-//       marginTop: '21px'
-//     },
-//   }),
-// );
-
-// type Props = {
-//   order: Order,
-//   error: any
-// }
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+    padding: "5px"
+  },
+});
 
 const OrderDetailTable = ({orderGroup, tenant}) => {
-  // const classes = useStyles();
- 
+  const classes = useStyles();
 
-  // const registerUser = async () => {
-  //   const [error, order] = await handlePromise(axios.get(`https://api-order-prd.cc.cloudintercorpretail.pe/pvea/orders/v4754625plzv`)
-  //   .then(res => res.data))
-  //   return [error]
-  // }
-
-  // if (error) {
-  //   return <Error statusCode={error} />
-  // }
-  // return (
-  //   <div className={classes.container}>
-  //     <Box>
-  //       {order.orders.map((order, index) => (
-  //         <React.Fragment key={index}>
-  //           <p>{order}</p>
-  //         </React.Fragment>
-  //       ))}
-  //     </Box>        
-  //   </div>
-  // );
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -68,7 +42,7 @@ const OrderDetailTable = ({orderGroup, tenant}) => {
       .then(
         (result) => {
           setIsLoaded(true);
-          setItems(result.orders);
+          setItems(result.orders[0].details);
         },
         // Nota: es importante manejar errores aquí y no en 
         // un bloque catch() para que no interceptemos errores
@@ -85,18 +59,54 @@ const OrderDetailTable = ({orderGroup, tenant}) => {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
+    // return (
+    //   <ul>
+    //     {items.map(item => (
+    //       <li key={item.sellerSku}>
+    //         {item.sellerSku} {item.sellerSku}
+    //       </li>
+    //     ))}
+    //   </ul>
+    // );
     return (
-      <ul>
-        {items.map(item => (
-          <li key={item.orderId}>
-            {item.orderId} {item.orderId}
-          </li>
-        ))}
-        {/* {items.orders.map((order, index) => (
-          order.orderId
-        ))} */}
-        {/* {items[0]} */}
-      </ul>
+      <TableContainer component={Paper} >
+        <Table className={classes.table} size="small" padding="none" aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Sku</TableCell>
+              <TableCell>Nombre de Producto</TableCell>
+              <TableCell>Origen</TableCell>
+              <TableCell>Estado</TableCell>
+              <TableCell>Und. Medida</TableCell>
+              <TableCell>Cant.</TableCell>
+              <TableCell>Cant. Pick</TableCell>
+              <TableCell>Fecha entrega</TableCell>
+              <TableCell>Precio</TableCell>
+              <TableCell>Descuento</TableCell>
+              <TableCell>Total</TableCell>
+              {/* <TableCell>Motivo Anulacion</TableCell> */}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {items.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell>{row.skuCode}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>-</TableCell>
+                <TableCell>{row.currentStateDescription}</TableCell>
+                <TableCell>{row.measurementUnit}</TableCell>
+                <TableCell>{row.quantity}</TableCell>
+                <TableCell>{row.amountPick}</TableCell>
+                <TableCell>{Moment(row.deliveryDate).calendar()}</TableCell>
+                <TableCell>{row.price}</TableCell>
+                <TableCell>{row.productDiscount}</TableCell>
+                <TableCell>{row.sellingPrice}</TableCell>
+                {/* <TableCell>{row.cancelReasonSubType}</TableCell> */}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     );
   }
 }

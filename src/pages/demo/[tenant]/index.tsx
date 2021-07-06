@@ -19,8 +19,7 @@ type Props = {
 const index = ({ordersGroup, errorCode, tenant}: Props) => {
   return (
     <div>
-      <Container maxWidth="lg">
-        <br/>
+      <Container maxWidth={false} disableGutters={true} style={{padding: "10px"}}>
         <FormContainer>
           <FilterForm/>
         </FormContainer>

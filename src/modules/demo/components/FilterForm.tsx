@@ -58,10 +58,10 @@ export default function FilterForm() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <TextField id="standard-basic" label="Nro Documento" size="small" fullWidth variant="outlined" />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -71,7 +71,7 @@ export default function FilterForm() {
                 format="MM/dd/yyyy"
                 size="small"
                 id="date-picker-inline"
-                label="Fecha Desde"
+                label="Fecha Hasta"
                 value={selectedDate}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
@@ -80,7 +80,7 @@ export default function FilterForm() {
               />
             </MuiPickersUtilsProvider>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -99,7 +99,7 @@ export default function FilterForm() {
               />
             </MuiPickersUtilsProvider>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={2}>
             <Button variant="contained" color="primary" fullWidth>
               Buscar 
             </Button>
