@@ -57,7 +57,7 @@ const OrderDetailTable = ({orderGroup, tenant}) => {
   // );
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState({});
+  const [items, setItems] = useState([]);
 
   // Note: the empty deps array [] means
   // this useEffect will run once
@@ -68,7 +68,7 @@ const OrderDetailTable = ({orderGroup, tenant}) => {
       .then(
         (result) => {
           setIsLoaded(true);
-          setItems(result);
+          setItems(result.orders);
         },
         // Nota: es importante manejar errores aquí y no en 
         // un bloque catch() para que no interceptemos errores
@@ -78,7 +78,7 @@ const OrderDetailTable = ({orderGroup, tenant}) => {
           setError(error);
         }
       )
-  }, {})
+  }, [])
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -87,15 +87,15 @@ const OrderDetailTable = ({orderGroup, tenant}) => {
   } else {
     return (
       <ul>
-        {/* {items.orders.map(item => (
+        {items.map(item => (
           <li key={item.orderId}>
             {item.orderId} {item.orderId}
           </li>
-        ))} */}
+        ))}
         {/* {items.orders.map((order, index) => (
           order.orderId
         ))} */}
-        {items.orderGroup}
+        {/* {items[0]} */}
       </ul>
     );
   }

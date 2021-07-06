@@ -58,10 +58,10 @@ export default function FilterForm() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField id="standard-basic" label="Nro Documento" size="small" fullWidth variant="outlined" />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -80,7 +80,7 @@ export default function FilterForm() {
               />
             </MuiPickersUtilsProvider>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -99,7 +99,7 @@ export default function FilterForm() {
               />
             </MuiPickersUtilsProvider>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={1}>
             <Button variant="contained" color="primary" fullWidth>
               Buscar 
             </Button>
