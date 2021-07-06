@@ -9,17 +9,25 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import AccordionActions from '@material-ui/core/AccordionActions';
-import { Button } from '@material-ui/core';
+import { Button, Chip, colors } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import red from '@material-ui/core/colors/red';
 import theme from '../../../common/utils/theme';
 import { Order } from '../../../modules/order/types/Order'
-import Chip from '@material-ui/core/Chip';
 import Moment from 'moment';
+import { OrderGroup } from '../../order/types/OrderGroup';
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
+import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
+import SellerImage from '../../../common/components/SellerImage';
+import OrderAccordion from './OrderAccordion';
+import {StatusChip} from '../../../common/components/StatusChip';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
+import LocalShippingOutlinedIcon from '@material-ui/icons/LocalShippingOutlined';
 
 type Props = { 
-  orders: Order[],
+  ordersGroup: OrderGroup[],
   tenant: string
 }
 
@@ -29,9 +37,10 @@ const useStyles = makeStyles({
   },
   button: {
     color: "white",
-    backgroundColor: red[700],
+    backgroundColor: "#af525c",
+    marginRight: "auto",
     "&:hover": {
-      backgroundColor: red[900],
+      backgroundColor: "#7a3940",
     },
   },
   column: {
@@ -39,91 +48,61 @@ const useStyles = makeStyles({
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
+    display: 'flex',
+    alignItems: 'center'
   },
+  container: {
+    backgroundColor: theme.palette.secondary.main
+  }
 });
 
-export default function ActionAccordion({orders, tenant}: Props) {
+export default function ActionAccordion({ordersGroup, tenant}: Props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {orders.map((order, index) => (
-            // <TableRow key={order.orderId}>
-            //   <TableCell><a href={"/order/" + tenant + "/" + order.orderGroup}>{order.orderId}</a></TableCell>
-            //   <TableCell>{order.statusOrderDescription}</TableCell>
-            //   <TableCell>{order.deliveryType}</TableCell>
-            //   <TableCell>{Moment(order.creationDate).calendar()}</TableCell>
-            //   <TableCell>{order.subTotal}</TableCell>
-            //   <TableCell>{order.totalDiscount}</TableCell>
-            //   <TableCell>{order.totalShipping}</TableCell>
-            //   <TableCell>{order.total}</TableCell>
-            // </TableRow>
-            <Accordion>
+      {ordersGroup.map((orderGroup, index) => (
+            <Accordion className={classes.container} defaultExpanded={index==0} TransitionProps={{ unmountOnExit: true, timeout:0 }} key={orderGroup.orderGroup}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-label="Expand"
                 aria-controls="additional-actions3-content"
                 id="additional-actions3-header"
               >
-                {/* <FormControlLabel
-                  aria-label="Acknowledge"
-                  onClick={(event) => event.stopPropagation()}
-                  onFocus={(event) => event.stopPropagation()}
-                  control={<Checkbox />}
-                  label=""
-                /> */}
                 <div className={classes.column}>
-                  <Typography className={classes.heading}># Pedido:</Typography>
-                  <Typography className={classes.heading}>{order.orderId}</Typography>
+                  <Typography className={classes.heading}><AssignmentOutlinedIcon fontSize="small"/>  Pedido:</Typography>
+                  <Typography className={classes.heading}>{orderGroup.orderGroup}</Typography>
                 </div>
                 <div className={classes.column}>
                   <Typography className={classes.heading}>Fecha de Compra:</Typography>
-                  <Typography className={classes.heading}>{Moment(order.creationDate).calendar()}</Typography>
+                  <Typography className={classes.heading}>{Moment(orderGroup.orders[0].creationDate).calendar()}</Typography>
                 </div>
                 <div className={classes.column}>
                   <Typography className={classes.heading}>Total:</Typography>
-                  <Typography className={classes.heading}>{order.total}</Typography>
-                </div>
-                <div className={classes.column}>
-                  <Typography className={classes.heading}>Tipo de Entrega</Typography>
-                  <Typography className={classes.heading}>{order.deliveryType}</Typography>
-                </div>
-                <div className={classes.column}>
-                  <Typography className={classes.heading}>Despachado por:</Typography>
-                  <Typography className={classes.heading}>{order.seller}</Typography>
+                  <Typography className={classes.heading}>{orderGroup.groupTotal}</Typography>
                 </div>
                 <div className={classes.column}>
                   <Typography className={classes.heading}>Estado:</Typography>
-                  <Chip size="small" label={order.statusOrderDescription} />
+                  <Chip size="small" label={orderGroup.statusOrderDescription} />
+                  {/* <StatusChip status={orderGroup.statusOrder} statusDescription={orderGroup.statusOrderDescription}/> */}
                 </div>
               </AccordionSummary>
               <AccordionDetails>
-                {/* <Typography color="textSecondary">
-                  If you forget to put an aria-label on the nested action, the label of the action will
-                  also be included in the label of the parent button that controls the accordion
-                  expansion.
-                </Typography> */}
-                <div className={classes.column}>
-                  <Typography className={classes.heading}># Pedido:</Typography>
-                  <Typography className={classes.heading}>{order.orderId}</Typography>
-                </div>
-                <div className={classes.column}>
-                  <Typography className={classes.heading}>Fecha de Compra:</Typography>
-                  <Typography className={classes.heading}>{Moment(order.creationDate).calendar()}</Typography>
-                </div>
-                <div className={classes.column}>
-                  <Typography className={classes.heading}>Total:</Typography>
-                  <Typography className={classes.heading}>{order.total}</Typography>
-                </div>
-                <div className={classes.column}>
-                  <Typography className={classes.heading}>Tipo de Entrega</Typography>
-                  <Typography className={classes.heading}>{order.deliveryType}</Typography>
-                </div>
+                <OrderAccordion orders={orderGroup.orders} tenant={tenant}/>
               </AccordionDetails>
               <Divider />
               <AccordionActions>
                 <Button size="small" variant="contained" className={classes.button}  startIcon={<CancelIcon />}>Anular Pedido</Button>
-                <Button size="small" variant="contained" color="secondary" startIcon={<EventAvailableIcon/>}>
+                <Button size="small" variant="contained" color="primary" startIcon={<LocalShippingOutlinedIcon/>}>
+                  Despachos
+                </Button>
+                <Button size="small" variant="contained" color="primary" startIcon={<BuildOutlinedIcon/>}>
+                  Servicios
+                </Button>
+                <Button size="small" variant="contained" color="primary" startIcon={<EmailOutlinedIcon/>}>
+                  Comunicaciones
+                </Button>
+                <Button size="small" variant="contained" color="primary" startIcon={<EventAvailableIcon/>}>
                   Reprogramar Pedido
                 </Button>
               </AccordionActions>

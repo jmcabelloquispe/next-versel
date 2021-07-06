@@ -71,7 +71,7 @@ export default function FilterForm() {
                 format="MM/dd/yyyy"
                 size="small"
                 id="date-picker-inline"
-                label="Fecha Hasta"
+                label="Fecha Desde"
                 value={selectedDate}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{

@@ -1,6 +1,7 @@
-import {OrderDetail} from './OrderDetail';
+import { Order } from "./Order";
+import { OrderDetail } from "./OrderDetail";
 
-export type Order = {
+export type OrderGroup = {
   orderId: string;
   subTotal: string;
   totalDiscount: string;
@@ -14,5 +15,6 @@ export type Order = {
   orders: Order[];
   details: OrderDetail[];
   seller: string;
-  statusOrder: string
+  statusOrder: string;
+  groupTotal: string;
 };

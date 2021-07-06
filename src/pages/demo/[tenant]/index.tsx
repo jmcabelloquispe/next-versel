@@ -6,16 +6,17 @@ import FilterForm from '../../../modules/demo/components/FilterForm'
 import ActionAccordion from '../../../modules/demo/components/ActionAccordion'
 import { GetServerSideProps } from 'next'
 import { Order } from '../../../modules/order/types/Order'
+import { OrderGroup } from '../../../modules/order/types/OrderGroup'
 import handlePromise from '../../../common/utils/handlePromise'
 import axios from 'axios';
 
 type Props = {
-  orders: Order[],
+  ordersGroup: OrderGroup[],
   tenant: string,
   errorCode: any
 }
 
-const index = ({orders, errorCode, tenant}: Props) => {
+const index = ({ordersGroup, errorCode, tenant}: Props) => {
   return (
     <div>
       <Container maxWidth="lg">
@@ -24,7 +25,7 @@ const index = ({orders, errorCode, tenant}: Props) => {
           <FilterForm/>
         </FormContainer>
         <br/>
-        <ActionAccordion orders={orders} tenant={tenant}/>
+        <ActionAccordion ordersGroup={ordersGroup} tenant={tenant}/>
       </Container>
     </div>
   )
@@ -33,10 +34,10 @@ const index = ({orders, errorCode, tenant}: Props) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const {email, dateFrom, dateTo} = context.query
   const tenant = context.params?.tenant;
-  const [errorCode, orders] = await handlePromise(axios.post(`https://api-order-prd.cc.cloudintercorpretail.pe/${tenant}/orders`, 
+  const [errorCode, ordersGroup] = await handlePromise(axios.post(`https://api-order-prd.cc.cloudintercorpretail.pe/${tenant}/orders/group`, 
   {email, dateFrom, dateTo}).then(res => res.data))
   return {
-    props: {orders, errorCode, tenant}
+    props: {ordersGroup, errorCode, tenant}
   }
 }
 
